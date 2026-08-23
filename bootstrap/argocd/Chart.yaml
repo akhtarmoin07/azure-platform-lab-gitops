@@ -1,0 +1,11 @@
+apiVersion: v2
+name: platform-argocd
+description: Pinned Argo CD bootstrap chart for the Azure platform lab
+type: application
+version: 0.1.0
+appVersion: "3.4.5"
+
+dependencies:
+  - name: argo-cd
+    version: 10.2.1
+    repository: https://argoproj.github.io/argo-helm
