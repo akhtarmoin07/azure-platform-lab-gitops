@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: Cluster guardrails owned by the platform team
+  sourceRepos:
+    - https://github.com/akhtarmoin07/azure-platform-lab-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: "*"
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  orphanedResources:
+    warn: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: Development application delivery boundary
+  sourceRepos:
+    - https://github.com/akhtarmoin07/azure-platform-lab-apps.git
+    - https://github.com/akhtarmoin07/azure-platform-lab-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: dev
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  orphanedResources:
+    warn: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: Production-pattern application delivery boundary
+  sourceRepos:
+    - https://github.com/akhtarmoin07/azure-platform-lab-apps.git
+    - https://github.com/akhtarmoin07/azure-platform-lab-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: prod
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  orphanedResources:
+    warn: true

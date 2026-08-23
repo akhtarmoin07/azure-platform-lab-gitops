@@ -40,3 +40,15 @@ kubectl get services --namespace argocd
 
 The API server remains private to the cluster through a `ClusterIP` service.
 Use port forwarding for lab access instead of provisioning a public load balancer.
+
+## Hand control to GitOps
+
+After Argo CD is healthy, apply the root application once:
+
+```bash
+kubectl apply -f bootstrap/root-application.yaml
+kubectl get applications,appprojects --namespace argocd
+```
+
+From this point onward, change cluster configuration by pull request. The root
+application reconciles the child applications declared under `clusters/lab`.

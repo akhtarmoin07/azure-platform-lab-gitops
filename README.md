@@ -13,8 +13,11 @@ development and production-pattern namespaces in the shared AKS lab cluster.
 
 ```text
 bootstrap/argocd/  Pinned Helm package used for the one-time Argo CD bootstrap
+clusters/lab/      Root Argo CD projects and child application declarations
+platform/          Namespace guardrails owned by the platform team
 docs/              Bootstrap and operational documentation
 ```
 
-Environment baselines and application definitions will be added after Argo CD is
-installed and verified.
+The lab currently runs `dev` and `prod` on one shared worker node. Namespace
+RBAC, quotas, Pod Security Admission and default-deny network policies provide
+logical isolation; they do not provide node-level high availability.
