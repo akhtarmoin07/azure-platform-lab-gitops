@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pharmacy-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: dev
+  source:
+    repoURL: https://github.com/akhtarmoin07/azure-platform-lab-apps.git
+    targetRevision: main
+    path: deploy/helm/pharmacy-platform
+    helm:
+      releaseName: pharmacy
+      valueFiles:
+        - values-dev.yaml
+      parameters:
+        - name: ui.image.repository
+          value: acrazplabd45c2a33.azurecr.io/pharmacy-ui
+        - name: ui.image.tag
+          value: 90a4b32b26fd73cb1921b504e0f72888fe21ddff
+        - name: backend.image.repository
+          value: acrazplabd45c2a33.azurecr.io/pharmacy-backend
+        - name: backend.image.tag
+          value: 90a4b32b26fd73cb1921b504e0f72888fe21ddff
+        - name: backend.workloadIdentity.clientId
+          value: 5393c972-6f44-4128-af85-a908846634c2
+        - name: migration.enabled
+          value: "true"
+        - name: migration.workloadIdentity.clientId
+          value: d8e8e3f5-66dc-4913-be13-22593c0ee34e
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - PruneLast=true
+      - ServerSideApply=true
+  revisionHistoryLimit: 10
