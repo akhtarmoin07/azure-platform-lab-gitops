@@ -38,8 +38,9 @@ kubectl get pods --namespace argocd
 kubectl get services --namespace argocd
 ```
 
-The API server remains private to the cluster through a `ClusterIP` service.
-Use port forwarding for lab access instead of provisioning a public load balancer.
+The Argo CD API/UI service remains private to the cluster through a `ClusterIP`
+service. Use port forwarding for lab access instead of provisioning a public
+load balancer.
 
 ## Hand control to GitOps
 
