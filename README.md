@@ -362,3 +362,6 @@ Planned after bootstrap verification:
    promotion.
 6. Add ingress, secret retrieval through workload identity/Key Vault, monitoring,
    alerts, backup exercises, and failure runbooks.
+
+   <img width="1919" height="930" alt="image" src="https://github.com/user-attachments/assets/633c00ec-f937-4c0e-99ec-d15bfa23bd05" />
+
