@@ -4,9 +4,9 @@ metadata:
   name: platform-automation-budget
 spec:
   hard:
-    requests.cpu: "250m"
-    requests.memory: 256Mi
-    limits.cpu: "500m"
-    limits.memory: 512Mi
-    pods: "4"
-    services: "2"
+    requests.cpu: "1500m"
+    requests.memory: 2Gi
+    limits.cpu: "5"
+    limits.memory: 3Gi
+    pods: "8"
+    services: "4"
