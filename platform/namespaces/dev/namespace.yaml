@@ -4,6 +4,7 @@ metadata:
   name: dev
   labels:
     environment: dev
+    gateway-access: public
     pod-security.kubernetes.io/enforce: baseline
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted

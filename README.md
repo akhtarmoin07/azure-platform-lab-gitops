@@ -4,10 +4,12 @@ This repository is the desired-state source for Kubernetes configuration in the
 `aks-azplab-lab` cluster. Argo CD continuously compares the YAML stored here
 with the live cluster and corrects drift.
 
-The lab uses one shared AKS worker node because the subscription currently has
-a four-vCPU regional quota. The repository models production delivery and
-governance patterns, but it does not claim production availability: failure or
-maintenance of the single worker node affects Argo CD, `dev`, and `prod`.
+The lab uses two shared AKS worker nodes, consuming the subscription's current
+four-vCPU regional quota. The platform team owns the shared `public-gateway` in
+`platform-system`. Application namespaces opt in with the
+`gateway-access: public` label, while each Helm release owns its
+namespace-scoped `HTTPRoute`. Developers can manage routes in their namespace
+but cannot modify the shared Gateway or GatewayClass.
 
 ## Ownership and repository boundaries
 
