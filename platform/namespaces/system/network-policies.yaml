@@ -39,3 +39,67 @@ spec:
             cidr: 0.0.0.0/0
       ports:
         - { protocol: TCP, port: 443 }
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: public-gateway-access
+spec:
+  podSelector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: public-gateway
+
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress:
+    # Public HTTP listener.
+    - ports:
+        - protocol: TCP
+          port: 80
+
+    # Istio proxy health/status endpoint used by the platform.
+    - ports:
+        - protocol: TCP
+          port: 15021
+
+  egress:
+    # Resolve Kubernetes service names.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+    # Retrieve certificates and configuration from the managed Istio control plane.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: aks-istio-system
+          podSelector:
+            matchLabels:
+              app: istiod
+      ports:
+        - protocol: TCP
+          port: 15012
+
+    # Forward HTTP requests only to UI Pods in approved public namespaces.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              gateway-access: public
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/component: ui
+      ports:
+        - protocol: TCP
+          port: 8080
