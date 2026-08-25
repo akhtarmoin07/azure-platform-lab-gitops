@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - projects.yaml
   - namespace-baselines.yaml
+  - gateway.yaml
   - applications/pharmacy-dev.yaml
   - applications/pharmacy-prod.yaml
