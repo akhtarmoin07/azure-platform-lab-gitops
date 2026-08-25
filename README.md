@@ -366,6 +366,7 @@ Planned after bootstrap verification:
    alerts, backup exercises, and failure runbooks.
 
    <img width="1919" height="930" alt="image" src="https://github.com/user-attachments/assets/633c00ec-f937-4c0e-99ec-d15bfa23bd05" />
-   <img width="991" height="823" alt="image" src="https://github.com/user-attachments/assets/eb563d40-becd-4f27-baaa-4d287a7673f4" />
+<img width="988" height="805" alt="image" src="https://github.com/user-attachments/assets/8c18788c-ae3a-4261-9771-cccb7484d4a2" />
+
 
 
